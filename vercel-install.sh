@@ -1,22 +1,20 @@
 #!/bin/bash
 
 # Define a versão do Flutter a ser usada
-FLUTTER_VERSION="3.9.2"
+FLUTTER_VERSION="stable" # <-- MUDANÇA ESTÁ AQUI
 
 echo "Ajustando ambiente Linux (usando YUM)..."
-
-# Adicionada a flag --allowerasing para resolver o conflito
 yum install -y curl git unzip --allowerasing
 
-echo "Baixando Flutter SDK..."
+echo "Baixando Flutter SDK (versão $FLUTTER_VERSION)..."
 git clone https://github.com/flutter/flutter.git --depth 1 --branch $FLUTTER_VERSION /flutter
 
 # Adiciona o Flutter ao PATH
 export PATH="$PATH:/flutter/bin"
 
-echo "Configurando Flutter..."
-flutter precache
-flutter config --enable-web
+echo "Configurando Flutter (usando caminho absoluto)..."
+/flutter/bin/flutter precache
+/flutter/bin/flutter config --enable-web
 
-echo "Baixando dependências do projeto..."
-flutter pub get
+echo "Baixando dependências do projeto (usando caminho absoluto)..."
+/flutter/bin/flutter pub get
