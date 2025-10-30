@@ -1,28 +1,15 @@
-#!/bin/bash
+#!/bin/bash 
+FLUTTER_VERSION="stable"
 
-# Define a versão do Flutter a ser usada
-FLUTTER_VERSION="stable" # <-- MUDANÇA ESTÁ AQUI
+echo "Ajustando ambiente Linux (usando YUM)..."
+yum install -y curl git unzip --allowerasing
 
-#!/bin/bash
-# filepath: /Users/suellenvenanciodasilva/Documents/test/build-vercel.sh
+echo "Baixando Flutter SDK (versão $FLUTTER_VERSION)..."
+git clone https://github.com/flutter/flutter.git --depth 1 --branch $FLUTTER_VERSION /flutter
 
-# Instalar Flutter se não estiver disponível
-if ! command -v flutter &> /dev/null; then
-    echo "Flutter não encontrado, instalando..."
-    git clone https://github.com/flutter/flutter.git -b stable --depth 1
-    export PATH="$PWD/flutter/bin:$PATH"
-fi
+echo "Configurando Flutter (usando caminho absoluto)..."
+/flutter/bin/flutter precache
+/flutter/bin/flutter config --enable-web
 
-# Verificar versão do Flutter
-flutter --version
-
-# Habilitar web
-flutter config --enable-web
-
-# Instalar dependências
-flutter pub get
-
-# Build para web
-flutter build web --release --web-renderer html
-
-echo "Build concluído!"
+echo "Baixando dependências do projeto (usando caminho absoluto)..."
+/flutter/bin/flutter pub get
