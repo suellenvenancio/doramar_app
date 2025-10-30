@@ -1,4 +1,8 @@
-#!/bin/bash 
+#!/bin/bash
+
+# Define a versão do Flutter a ser usada
+FLUTTER_VERSION="3.22.2" # Opcional: fixe uma versão se desejar
+
 echo "Ajustando ambiente Linux (usando YUM)..."
 
 # Adicionada a flag --allowerasing para resolver o conflito
