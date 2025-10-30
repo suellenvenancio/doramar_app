@@ -34,8 +34,7 @@ class MenuState extends State<MenuStateApp> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    super.initState();
-
+    super.initState(); 
     tabController = TabController(length: 3, vsync: this);
   }
 
@@ -48,10 +47,11 @@ class MenuState extends State<MenuStateApp> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserStore>(context).user;
+ 
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 174, 201, 1),
       appBar: CustomAppBar(
-        title: "Menu",
+        title: "@${user?.username}",
         username: user?.username,
         bottom: TabBar(
           labelStyle: TextStyle(

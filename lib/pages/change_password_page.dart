@@ -13,7 +13,7 @@ class ResetPasswordFromCurrentPasswordPage extends StatelessWidget {
       backgroundColor: Color.fromRGBO(255, 174, 201, 1),
       appBar: AppBar(
         title: Text(
-          'Registrar',
+          'Alterar senha',
           style: TextStyle(color: Colors.white, fontSize: 25),
         ),
         backgroundColor: const Color.fromRGBO(233, 30, 99, 1),
@@ -180,28 +180,39 @@ class ResetPasswordFromCurrentPasswordFormState
                 return null;
               },
             ),
+                 const Spacer(),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(
-                    Color.fromRGBO(233, 30, 99, 1),
-                  ),
-                  shape: WidgetStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    padding: WidgetStateProperty.all(const EdgeInsets.all(25)),
+                    backgroundColor: WidgetStateProperty.all(
+                      Color.fromRGBO(233, 30, 99, 1),
+                    ),
+                    shape: WidgetStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                   ),
-                ),
-                onPressed: () {
-                  handleChange();
-                },
-                child: const Text(
-                  'Registrar',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
+                  onPressed: () {
+                    handleChange();
+
+                    if (_formKey.currentState!.validate()) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Processing Data')),
+                      );
+                    }
+                  },
+                  child: const Text(
+                    'Salvar',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
                 ),
               ),
-            ),
+            ), 
           ],
         ),
       ),

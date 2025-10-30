@@ -150,7 +150,7 @@ class ChangeUsernameFormState extends State<ChangeUsernameForm> {
                     }
                   },
                   child: const Text(
-                    'Atualizar username',
+                    'Atualizar',
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
