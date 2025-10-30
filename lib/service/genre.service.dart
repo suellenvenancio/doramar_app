@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../http/http_client.dart';
 import '../models/genres.model.dart';
@@ -13,12 +14,13 @@ class GenreService implements IGenreService {
   final AuthService authService;
 
   GenreService({required this.client, required this.authService});
+  final String apiUrl = dotenv.env['API_URL'] ?? 'http://localhost:3000';
 
   @override
   Future<List<Genre>> fetchAllGenres() async {
     final token = await authService.getFirebaseIdToken();
 
-    final baseUrl = "http://localhost:3000/genres";
+    final baseUrl = "$apiUrl/genres";
     final response = await client.get(
       url: baseUrl,
       headers: {'Authorization': 'Bearer $token'},

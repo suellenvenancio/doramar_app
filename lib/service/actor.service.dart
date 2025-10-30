@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import '../http/http_client.dart';
 import '../models/actors.model.dart';
 import 'auth_service.dart';
@@ -7,6 +9,8 @@ import 'auth_service.dart';
 abstract class IActorService {
   Future<List<Actor>> fetchAllActors();
 }
+
+final String apiUrl = dotenv.env['API_URL'] ?? 'http://localhost:3000';
 
 class ActorService implements IActorService {
   final IHttpClient client;
@@ -18,7 +22,7 @@ class ActorService implements IActorService {
   Future<List<Actor>> fetchAllActors() async {
     final token = await authService.getFirebaseIdToken();
 
-    final baseUrl = "http://localhost:3000/actors";
+    final baseUrl = "$apiUrl/actors";
     final response = await client.get(
       url: baseUrl,
       headers: {'Authorization': 'Bearer $token'},

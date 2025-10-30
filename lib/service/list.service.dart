@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import '../http/http_client.dart';
 import '../models/list.model.dart';
 import 'auth_service.dart';
@@ -22,11 +24,13 @@ class ListService implements IListService {
 
   ListService({required this.client, required this.authService});
 
+  final String apiUrl = dotenv.env['API_URL'] ?? 'http://localhost:3000';
+
   @override
   Future<List<ListModel>> fetchListsByUserId(String userId) async {
     final token = await authService.getFirebaseIdToken();
 
-    final baseUrl = "http://localhost:3000/lists/user/$userId";
+    final baseUrl = "$apiUrl/lists/user/$userId";
     final response = await client.get(
       url: baseUrl,
       headers: {'Authorization': 'Bearer $token'},
@@ -55,7 +59,7 @@ class ListService implements IListService {
     final int order,
     final String userId,
   ) async {
-    final baseUrl = "http://localhost:3000/lists/$listId";
+    final baseUrl = "$apiUrl/lists/$listId";
     final response = await client.patch(
       url: baseUrl,
       body: {"tvShowId": tvShowId, "order": order, "userId": userId},
@@ -79,7 +83,7 @@ class ListService implements IListService {
   ) async {
     final token = await authService.getFirebaseIdToken();
 
-    final baseUrl = "http://localhost:3000/lists/$listId/tvshow/$tvShowId";
+    final baseUrl = "$apiUrl/lists/$listId/tvshow/$tvShowId";
     final response = await client.post(
       url: baseUrl,
 
@@ -100,7 +104,7 @@ class ListService implements IListService {
   @override
   Future<ListModel> createList(String userId, String name) async {
     final token = await authService.getFirebaseIdToken();
-    const String baseUrl = "http://localhost:3000/lists";
+    final String baseUrl = "$apiUrl/lists";
 
     final response = await client.post(
       url: baseUrl,

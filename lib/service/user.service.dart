@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../http/http_client.dart';
 import '../models/user.model.dart';
@@ -22,11 +23,13 @@ class UserService with ChangeNotifier implements IUserService {
 
   UserService({required this.client, required this.authService});
 
+  final String apiUrl = dotenv.env['API_URL'] ?? 'http://localhost:3000';
+
   @override
   Future<User> fetchUser(String email) async {
     final token = await authService.getFirebaseIdToken();
 
-    final baseUrl = "http://localhost:3000/users?email=$email";
+    final baseUrl = "$apiUrl/users?email=$email";
     final response = await client.get(
       url: baseUrl,
       headers: {'Authorization': 'Bearer $token'},
@@ -48,7 +51,7 @@ class UserService with ChangeNotifier implements IUserService {
     String username,
     String password,
   ) async {
-    final baseUrl = "http://localhost:3000/users";
+    final baseUrl = "$apiUrl/users";
     final response = await client.post(
       url: baseUrl,
       body: {

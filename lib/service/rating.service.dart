@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import '../http/http_client.dart';
 import '../models/rating.model.dart';
 import '../models/rating_scale.model.dart';
@@ -17,11 +19,13 @@ class RatingService implements IRatingService {
 
   RatingService({required this.client, required this.authService});
 
+  final String apiUrl = dotenv.env['API_URL'] ?? 'http://localhost:3000';
+
   @override
   Future<List<RatingScale>> fetchRatingScale() async {
     final token = await authService.getFirebaseIdToken();
 
-    final baseUrl = "http://localhost:3000/ratings/scale";
+    final baseUrl = "$apiUrl/ratings/scale";
     final response = await client.get(
       url: baseUrl,
       headers: {'Authorization': 'Bearer $token'},
@@ -49,7 +53,7 @@ class RatingService implements IRatingService {
   Future<List<Rating>> fetchRatingsByUserId(String userId) async {
     final token = await authService.getFirebaseIdToken();
 
-    final baseUrl = "http://localhost:3000/ratings/user/$userId";
+    final baseUrl = "$apiUrl/ratings/user/$userId";
     final response = await client.get(
       url: baseUrl,
       headers: {'Authorization': 'Bearer $token'},
@@ -78,8 +82,7 @@ class RatingService implements IRatingService {
   ) async {
     final token = await authService.getFirebaseIdToken();
 
-    final baseUrl =
-        "http://localhost:3000/ratings/$scaleId/user/$userId/tvshow/$tvShowId/";
+    final baseUrl = "$apiUrl/ratings/$scaleId/user/$userId/tvshow/$tvShowId/";
     final response = await client.post(
       url: baseUrl,
       headers: {'Authorization': 'Bearer $token'},
