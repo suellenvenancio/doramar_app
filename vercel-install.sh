@@ -1,12 +1,8 @@
-#!/bin/bash
-
-# Define a versão do Flutter a ser usada
-FLUTTER_VERSION="3.22.2" # Opcional: fixe uma versão se desejar
-
+#!/bin/bash 
 echo "Ajustando ambiente Linux (usando YUM)..."
 
-# Trocado 'apt-get update/install' por 'yum install'
-yum install -y curl git unzip
+# Adicionada a flag --allowerasing para resolver o conflito
+yum install -y curl git unzip --allowerasing
 
 echo "Baixando Flutter SDK..."
 git clone https://github.com/flutter/flutter.git --depth 1 --branch $FLUTTER_VERSION /flutter
