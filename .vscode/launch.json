@@ -5,18 +5,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "test",
+      "name": "doramar",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "test (profile mode)",
+      "name": "doramar (profile mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "test (release mode)",
+      "name": "doramar (release mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"
