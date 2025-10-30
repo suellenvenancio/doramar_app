@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 import '../http/http_client.dart';
 import '../models/list.model.dart';
 import 'auth_service.dart';
@@ -24,7 +22,7 @@ class ListService implements IListService {
 
   ListService({required this.client, required this.authService});
 
-  final String apiUrl = dotenv.env['API_URL'] ?? 'http://localhost:3000';
+  static const String apiUrl = String.fromEnvironment('API_URL');
 
   @override
   Future<List<ListModel>> fetchListsByUserId(String userId) async {

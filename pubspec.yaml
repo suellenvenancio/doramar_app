@@ -42,8 +42,7 @@ dependencies:
   provider: ^6.1.5+1
   intl: ^0.20.2
   expandable_text: ^2.3.0
-  flutter_dotenv: ^6.0.0
-
+ 
   
 
 dev_dependencies:
@@ -98,4 +97,4 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
-
+ 

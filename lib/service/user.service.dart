@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../http/http_client.dart';
 import '../models/user.model.dart';
@@ -23,7 +22,7 @@ class UserService with ChangeNotifier implements IUserService {
 
   UserService({required this.client, required this.authService});
 
-  final String apiUrl = dotenv.env['API_URL'] ?? 'http://localhost:3000';
+  static const String apiUrl = String.fromEnvironment('API_URL');
 
   @override
   Future<User> fetchUser(String email) async {

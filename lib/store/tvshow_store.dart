@@ -25,6 +25,7 @@ class TvShowStore extends ChangeNotifier {
 
     try {
       final tvshows = await service.fetchTvshows();
+
       _tvShows = tvshows;
       _error = null;
     } catch (e) {

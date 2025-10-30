@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 import '../http/http_client.dart';
 import '../models/rating.model.dart';
 import '../models/rating_scale.model.dart';
@@ -19,7 +17,7 @@ class RatingService implements IRatingService {
 
   RatingService({required this.client, required this.authService});
 
-  final String apiUrl = dotenv.env['API_URL'] ?? 'http://localhost:3000';
+  static const String apiUrl = String.fromEnvironment('API_URL');
 
   @override
   Future<List<RatingScale>> fetchRatingScale() async {

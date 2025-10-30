@@ -4,22 +4,23 @@
   // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+ 
     {
-      "name": "doramar",
-      "request": "launch",
-      "type": "dart"
-    },
-    {
-      "name": "doramar (profile mode)",
+      "name": "doramar (Debug)",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "profile"
+      "args": [
+        "--dart-define=API_URL=https://doramar-api.vercel.app", 
+      ]
     },
     {
-      "name": "doramar (release mode)",
+      "name": "doramar (Release)",
       "request": "launch",
       "type": "dart",
-      "flutterMode": "release"
-    }
+      "flutterMode": "release",
+      "args": [
+        "--dart-define=API_URL=http://doramar-api.vercel.app",  
+      ]
+    } 
   ]
 }
