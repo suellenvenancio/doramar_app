@@ -18,6 +18,7 @@ import 'store/rating.store.dart';
 import 'store/tvshow_store.dart';
 import 'store/user.store.dart';
 
+// v1.0.1
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
