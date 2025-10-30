@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'auth_layout.dart';
 import 'firebase_options.dart';
@@ -20,6 +21,7 @@ import 'store/user.store.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
@@ -101,7 +103,11 @@ class MyApp extends StatelessWidget {
         title: 'Meu App de Doramas',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.pink),
-        home: const AuthLayout(),
+        initialRoute: '/',
+        routes: {'/': (context) => const AuthLayout()},
+        onUnknownRoute: (settings) {
+          return MaterialPageRoute(builder: (context) => const AuthLayout());
+        },
       ),
     );
   }

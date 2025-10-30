@@ -1,8 +1,25 @@
 {
-  "version": 2,
+  "buildCommand": "flutter build web --release --web-renderer html",
+  "outputDirectory": "build/web",
+  "installCommand": "flutter pub get",
+  "framework": null,
+  "github": {
+    "silent": true
+  },
+  "builds": [
+    {
+      "src": "web/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "functions": {
+    "app.dart": {
+      "runtime": "vercel-flutter@0.1.0"
+    }
+  },
   "routes": [
     {
-      "src": "/.*",
+      "src": "/(.*)",
       "dest": "/index.html"
     }
   ]
