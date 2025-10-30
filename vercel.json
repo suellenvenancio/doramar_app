@@ -1,8 +1,4 @@
 {
-  "buildCommand": "flutter build web --release --web-renderer html",
-  "outputDirectory": "build/web",
-  "installCommand": "flutter pub get",
-  "framework": null,
   "github": {
     "silent": true
   },
