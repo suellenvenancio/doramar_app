@@ -69,8 +69,14 @@ class ListFormModalState extends State<ListFormModal> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             ),
           ),
-          onPressed: () {
-            store.createList(_listName.text);
+          onPressed: () async {
+            await store.createList(_listName.text);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Lista criada com sucesso!'),
+                backgroundColor: Colors.pink,
+              ),
+            );
             Navigator.of(context).pop();
           },
           child: Text('Criar Lista', style: TextStyle(color: Colors.white)),

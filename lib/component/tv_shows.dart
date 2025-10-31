@@ -54,7 +54,7 @@ class _TvShowListState extends State<TvShowList> {
 
                   if (tvShowStore.tvShows.isEmpty) {
                     return const Center(
-                      child: Text("Nenhum série encontrado!"),
+                      child: Text("Nenhum dorama encontrado!"),
                     );
                   }
 
@@ -86,7 +86,10 @@ class _TvShowListState extends State<TvShowList> {
                     itemBuilder: (context, index) {
                       final tvShow = filteredShows[index];
 
-                      return TvShowListItem(tvShow: tvShow);
+                      return TvShowListItem(
+                        key: ValueKey(tvShow.id),
+                        tvShow: tvShow,
+                      );
                     },
                   );
                 },

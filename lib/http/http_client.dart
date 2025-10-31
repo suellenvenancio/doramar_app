@@ -3,7 +3,11 @@ import 'package:http/http.dart' as http;
 
 abstract class IHttpClient {
   Future get({required String url, required Map<String, String> headers});
-  Future patch({required String url, Object? body});
+  Future patch({
+    required String url,
+    Object? body,
+    Map<String, String>? headers,
+  });
   Future post({
     required String url,
     Object? body,
@@ -24,12 +28,16 @@ class HttpClient implements IHttpClient {
   }
 
   @override
-  Future patch({required String url, Object? body}) async {
+  Future patch({
+    required String url,
+    Object? body,
+    Map<String, String>? headers,
+  }) async {
     final uri = Uri.parse(url);
 
     return await client.patch(
       uri,
-      headers: {"Content-Type": "application/json"},
+      headers: {"Content-Type": "application/json", ...?headers},
       body: (body != null) ? jsonEncode(body) : null,
     );
   }

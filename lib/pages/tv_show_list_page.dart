@@ -38,7 +38,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
         child: Padding(
           padding: const EdgeInsets.all(27),
           child: Text(
-            'Nenhum programa de TV na lista. Volte a tela séries para adicionar um título na lista!',
+            'Nenhum dorama na lista. Volte a tela séries para adicionar um título na lista!',
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 19, color: Colors.black),
           ),
@@ -59,7 +59,7 @@ class _SeriesListPageState extends State<SeriesListPage> {
               tvShows.insert(newIndex, item);
             });
 
-            // await store.updateList(tvShows[newIndex].id, listId, newIndex);
+            await store.updateList(tvShows[newIndex].id, listId, newIndex);
           },
           itemBuilder: (context, index) {
             final tvShow = tvShows[index];

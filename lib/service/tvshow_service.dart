@@ -14,10 +14,7 @@ class TvShowService implements ITvShowService {
 
   TvShowService({required this.client, required this.authService});
 
-  static const String apiUrl = String.fromEnvironment(
-    'API_URL',
-    defaultValue: "https://doramar-api.vercel.app",
-  );
+  static const String apiUrl = String.fromEnvironment('API_URL');
 
   @override
   Future<List<TvShow>> fetchTvshows() async {
@@ -31,7 +28,6 @@ class TvShowService implements ITvShowService {
 
     if (response.statusCode == 200) {
       final List<TvShow> tvShows = [];
-      print(response.body);
       final res = jsonDecode(response.body);
       res['data'].map((item) {
         final TvShow tvShow = TvShow.fromMap(item);

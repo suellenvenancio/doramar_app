@@ -57,8 +57,8 @@ class ListFormModalState extends State<ListFormModal> {
           child: Text('Fechar', style: TextStyle(color: Colors.pink)),
         ),
         TextButton(
-          onPressed: () {
-            store.createList(_listName.text);
+          onPressed: () async {
+            await store.createList(_listName.text);
             Navigator.of(context).pop();
           },
           child: ElevatedButton(
@@ -71,8 +71,8 @@ class ListFormModalState extends State<ListFormModal> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
               ),
             ),
-            onPressed: () {
-              store.createList(_listName.text);
+            onPressed: () async {
+              await store.createList(_listName.text);
               Navigator.of(context).pop();
             },
             child: Text('Criar Lista', style: TextStyle(color: Colors.white)),

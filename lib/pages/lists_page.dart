@@ -2,13 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../component/add_list_modal.dart';
-import '../http/http_client.dart';
 import '../models/tvshow.model.dart';
-import '../service/auth_service.dart';
-import '../service/list.service.dart';
-import '../service/user.service.dart';
 import '../store/list.store.dart';
-import '../store/user.store.dart';
 import 'tv_show_list_page.dart';
 
 class ListPage extends StatefulWidget {

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../models/tvshow.model.dart';
 import '../store/list.store.dart';
 import '../store/rating.store.dart';
+import '../component/add_list_modal.dart';
 
 class TvShowListItem extends StatelessWidget {
   final TvShow tvShow;
@@ -77,23 +78,49 @@ class TvShowListItem extends StatelessWidget {
                             position.dx + button.size.width,
                             position.dy,
                           ),
-                          items: allLists
-                              .map(
-                                (listName) => PopupMenuItem<String>(
-                                  value: listName,
-                                  child: Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.list_alt,
+                          items: allLists.isEmpty
+                              ? [
+                                  PopupMenuItem<String>(
+                                    enabled: false,
+                                    child: TextButton.icon(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return ListFormModal();
+                                          },
+                                        );
+                                      },
+                                      icon: const Icon(
+                                        Icons.add,
                                         color: Colors.grey,
                                       ),
-                                      const SizedBox(width: 10),
-                                      Text(listName),
-                                    ],
+                                      label: const Text(
+                                        'Criar nova lista',
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              )
-                              .toList(),
+                                ]
+                              : allLists
+                                    .map(
+                                      (listName) => PopupMenuItem<String>(
+                                        value: listName,
+                                        child: Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.list_alt,
+                                              color: Colors.grey,
+                                            ),
+                                            const SizedBox(width: 10),
+                                            Text(listName),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
                         );
 
                         final tvShowAlreadyInAnyList = store.lists
