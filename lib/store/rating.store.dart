@@ -51,6 +51,7 @@ class RatingStore with ChangeNotifier {
         user.id,
         scaleId,
       );
+      _ratings.removeWhere((rating) => rating.id == createdRating.id);
       _ratings.add(createdRating);
       return createdRating;
     } catch (e) {

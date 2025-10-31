@@ -58,12 +58,15 @@ class ListService implements IListService {
     final String userId,
   ) async {
     final baseUrl = "$apiUrl/lists/$listId";
+    final token = await authService.getFirebaseIdToken();
+
     final response = await client.patch(
       url: baseUrl,
       body: {"tvShowId": tvShowId, "order": order, "userId": userId},
+      headers: {"Authorization": "Bearer $token"},
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       final res = jsonDecode(response.body)['data'];
       final updatedList = ListModel.fromMap(res);
 
