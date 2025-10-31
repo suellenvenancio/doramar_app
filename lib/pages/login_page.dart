@@ -15,8 +15,9 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'Login'),
+      resizeToAvoidBottomInset: true,
       backgroundColor: Color.fromRGBO(255, 174, 201, 1),
-      body: const LoginForm(),
+      body: SafeArea(child: SingleChildScrollView(child: LoginForm())),
     );
   }
 }
@@ -207,7 +208,7 @@ class LoginFormState extends State<LoginForm> {
                 ),
               ],
             ),
-            const Spacer(),
+            const SizedBox(height: 15),
             Builder(
               builder: (context) {
                 final store = Provider.of<AuthStore>(context);
