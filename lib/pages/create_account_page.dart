@@ -15,8 +15,14 @@ class CreateAccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'Criar Conta'),
+      resizeToAvoidBottomInset: true,
       backgroundColor: Color.fromRGBO(255, 174, 201, 1),
-      body: const CreateAccountForm(),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+          child: CreateAccountForm(),
+        ),
+      ),
     );
   }
 }
@@ -93,8 +99,9 @@ class CreateAccountFormState extends State<CreateAccountForm> {
     return Form(
       key: _formKey,
       child: Padding(
-        padding: const EdgeInsets.only(top: 250, left: 10, right: 10),
+        padding: const EdgeInsets.only(top: 100),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
               style: const TextStyle(color: Colors.black, fontSize: 20),
@@ -286,9 +293,9 @@ class CreateAccountFormState extends State<CreateAccountForm> {
                   ),
                 ],
               ),
-            const Spacer(),
+            const SizedBox(height: 25),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(0),
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
