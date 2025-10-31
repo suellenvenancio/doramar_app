@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:test/models/user.model.dart';
 
 import '../models/rating.model.dart';
 import '../models/rating_scale.model.dart';
@@ -89,6 +88,8 @@ class RatingStore with ChangeNotifier {
   Future onUpdateUser(UserStore newUserStore) async {
     try {
       if (newUserStore.user == null) return [];
+      final allRatingScales = await service.fetchRatingScale();
+      _ratingScales = allRatingScales;
 
       final ratings = await service.fetchRatingsByUserId(newUserStore.user!.id);
       _ratings = ratings;
