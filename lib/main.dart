@@ -100,7 +100,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Meu App de Doramas',
+        title: 'Doramar',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.pink),
         initialRoute: '/',
