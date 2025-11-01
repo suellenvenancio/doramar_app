@@ -80,9 +80,10 @@ class RatingService implements IRatingService {
   ) async {
     final token = await authService.getFirebaseIdToken();
 
-    final baseUrl = "$apiUrl/ratings/$scaleId/user/$userId/tvshow/$tvShowId/";
+    final baseUrl = "$apiUrl/ratings";
     final response = await client.post(
       url: baseUrl,
+      body: {'tvShowId': tvShowId, 'userId': userId, 'scaleId': scaleId},
       headers: {'Authorization': 'Bearer $token'},
     );
 
