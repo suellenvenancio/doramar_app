@@ -282,16 +282,19 @@ class CreateAccountFormState extends State<CreateAccountForm> {
               },
             ),
             if (errorMessage.isNotEmpty)
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      errorMessage,
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(color: Colors.red, fontSize: 16),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        errorMessage,
+                        textAlign: TextAlign.start,
+                        style: const TextStyle(color: Colors.red, fontSize: 16),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             const SizedBox(height: 25),
             Padding(
@@ -313,7 +316,7 @@ class CreateAccountFormState extends State<CreateAccountForm> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       handleCreate(userStore);
-                      if (context.mounted) {
+                      if (context.mounted && userStore.error == null) {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
@@ -324,10 +327,19 @@ class CreateAccountFormState extends State<CreateAccountForm> {
                       }
                     }
                   },
-                  child: const Text(
-                    'Criar',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
+                  child: userStore.isLoading
+                      ? const SizedBox(
+                          height: 24.0,
+                          width: 24.0,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 3.0,
+                          ),
+                        )
+                      : Text(
+                          'Criar',
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
                 ),
               ),
             ),

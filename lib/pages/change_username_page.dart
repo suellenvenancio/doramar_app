@@ -9,8 +9,6 @@ class ChangeUsernamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const appTitle = 'Form Validation Demo';
-
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 174, 201, 1),
       appBar: AppBar(

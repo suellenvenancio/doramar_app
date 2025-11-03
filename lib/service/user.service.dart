@@ -14,6 +14,7 @@ abstract class IUserService {
     String username,
     String password,
   );
+  Future<User> updateUsername(String userId, String username);
 }
 
 class UserService with ChangeNotifier implements IUserService {
@@ -26,20 +27,25 @@ class UserService with ChangeNotifier implements IUserService {
 
   @override
   Future<User> fetchUser(String email) async {
-    final token = await authService.getFirebaseIdToken();
+    try {
+      final token = await authService.getFirebaseIdToken();
 
-    final baseUrl = "$apiUrl/users?email=$email";
-    final response = await client.get(
-      url: baseUrl,
-      headers: {'Authorization': 'Bearer $token'},
-    );
-    if (response.statusCode == 200) {
-      final res = jsonDecode(response.body)['data'];
+      final baseUrl = "$apiUrl/users?email=$email";
+      final response = await client.get(
+        url: baseUrl,
+        headers: {'Authorization': 'Bearer $token'},
+      );
 
-      final user = User.fromMap(res);
-      return user;
-    } else {
-      throw Exception('Failed to load users');
+      final res = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        final user = User.fromMap(res['data']);
+        return user;
+      } else {
+        throw res['message'] ?? 'Failed to load users';
+      }
+    } catch (e) {
+      throw "Error fetching user: ${e.toString()}";
     }
   }
 
@@ -50,24 +56,53 @@ class UserService with ChangeNotifier implements IUserService {
     String username,
     String password,
   ) async {
-    final baseUrl = "$apiUrl/users";
-    final response = await client.post(
-      url: baseUrl,
-      body: {
-        'name': name,
-        'email': email,
-        'username': username,
-        'password': password,
-      },
-    );
+    try {
+      final baseUrl = "$apiUrl/users";
+      final response = await client.post(
+        url: baseUrl,
+        body: {
+          'name': name,
+          'email': email,
+          'username': username,
+          'password': password,
+        },
+      );
 
-    if (response.statusCode == 201 || response.statusCode == 200) {
-      final res = jsonDecode(response.body)['data'];
+      final res = jsonDecode(response.body);
 
-      final user = User.fromMap(res);
-      return user;
-    } else {
-      throw Exception('Failed to create user');
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        final user = User.fromMap(res['data']);
+        return user;
+      } else {
+        throw res['message'] ?? 'Failed to create user';
+      }
+    } catch (e) {
+      throw "Erro ao criar usuário:${e.toString()}";
+    }
+  }
+
+  @override
+  Future<User> updateUsername(String userId, String username) async {
+    try {
+      final token = await authService.getFirebaseIdToken();
+
+      final baseUrl = "$apiUrl/users/$userId";
+      final response = await client.patch(
+        url: baseUrl,
+        body: {'username': username},
+        headers: {'Authorization': 'Bearer $token'},
+      );
+
+      final res = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        final user = User.fromMap(res['data']);
+        return user;
+      } else {
+        throw res['message'] ?? 'Failed to update username';
+      }
+    } catch (e) {
+      throw "Error updating username: ${e.toString()}";
     }
   }
 }

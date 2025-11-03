@@ -258,7 +258,7 @@ class LoginFormState extends State<LoginForm> {
                       },
                       child: store.isLoading
                           ? const SizedBox(
-                              height: 24.0, // Defina um tamanho fixo
+                              height: 24.0,
                               width: 24.0,
                               child: CircularProgressIndicator(
                                 color: Colors.white,
