@@ -208,7 +208,7 @@ class LoginFormState extends State<LoginForm> {
                 ),
               ],
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 150),
             Builder(
               builder: (context) {
                 final store = Provider.of<AuthStore>(context);
